@@ -1,9 +1,8 @@
 const knex = require("../database/knex");
 const AppError = require("../utils/AppError");
-const { hash, compare } = require("bcryptjs");
 
 class MovieTagsController {
-   async create(request, response) {
+   /* async create(request, response) {
       const { name, email, password } = request.body;
 
       const emailInUse = await knex("users")
@@ -99,7 +98,7 @@ class MovieTagsController {
 
       await knex("users").delete().where({ id });
       return response.json();
-   }
+   } */
 }
 
 module.exports = MovieTagsController;

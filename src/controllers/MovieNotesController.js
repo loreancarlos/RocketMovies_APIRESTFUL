@@ -47,15 +47,17 @@ class MovieNotesController {
          throw new AppError("Nota não encontrada!");
       }
 
-      user.name = name ?? user.name;
-      user.email = email ?? user.email;
-      user.password = await hash(password, 8);
+      note.title = title ?? note.title;
+      note.description = description ?? note.description;
+      note.rating = rating ?? note.rating;
+      note.tags = tags ?? note.tags;
 
-      await knex("users")
+      await knex("movie_notes")
          .update({
-            name: user.name,
-            email: user.email,
-            password: user.password,
+            title: note.title,
+            description: note.description,
+            rating: note.rating,
+            tags: note.tags,
             updated_at: knex.fn.now()
          })
          .where({ id });
