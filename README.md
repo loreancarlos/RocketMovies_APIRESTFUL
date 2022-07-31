@@ -4,12 +4,12 @@ Este é o projeto do último desafio do Stage 08 do programa Explorer da [Rocket
 
 ## Índice
 
-- [Projeto](#API_MovieNotes)
+- [Projeto](#API_RocketNotes)
   - [DesignDB](#DesignDB)
   - [Tecnologias Utilizadas](#tecs)
   - [Autor](#autor)
 
-## API_MovieNotes
+## API_RocketNotes
 
 Este projeto é o resultado do conhecimento adquirido no programa Explorer, até o momento.  
 
