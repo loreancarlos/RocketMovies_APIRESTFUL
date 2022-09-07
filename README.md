@@ -1,22 +1,22 @@
-# Desafio 01 - Stage 08, Explorer.
+# Desafio 01 - Stage 10, Explorer.
 
-Este é o projeto do último desafio do Stage 08 do programa Explorer da [RocketSeat](https://rocketseat.com.br/).
+Este é o projeto do último desafio do Stage 10. Programa [Explorer - RocketSeat](https://rocketseat.com.br/).
 
 ## Índice
 
-- [Projeto](#API_RocketNotes)
+- [Projeto](#RocketMovies_APIRESTful)
   - [DesignDB](#DesignDB)
   - [Tecnologias Utilizadas](#tecs)
   - [Autor](#autor)
 
-## API_RocketNotes
+## RocketMovies_APIRESTful
 
-Este projeto é o resultado do conhecimento adquirido no programa Explorer, até o momento.  
+Este projeto é o resultado do conhecimento adquirido no programa Explorer, até o momento.
 
 
 ### O Desafio
 
-- Construir uma API em Javascript utilizando o [Node.JS](https://nodejs.org/pt-br/) como plataforma de execução e realizar a comunicação com o banco de dados relacional [SQLite](https://www.sqlite.org/index.html).
+- Construir uma API RESTful em Javascript utilizando o [Node.JS](https://nodejs.org/pt-br/) como plataforma de execução e realizar a comunicação com o banco de dados relacional [SQLite](https://www.sqlite.org/index.html).
     - Para realizar a criação de middlewares e rotas foi utilizado o [Framework Express](http://expressjs.com/pt-br/).
     - Para realizar o tratamento de possíveis erros foi utilizado a biblioteca [Express Async Errors](https://www.npmjs.com/package/express-async-errors).
     - Para realizar a criação das SQLs foi utilizado o Query Builder [Knex](http://knexjs.org/).
