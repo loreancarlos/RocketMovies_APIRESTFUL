@@ -4,10 +4,9 @@ const MovieTagsController = require("../controllers/MovieTagsController");
 const movieTagsRoutes = Router();
 const movieTagsController = new MovieTagsController();
 
-/* movieTagsRoutes.post("/", movieTagsController.create);
-movieTagsRoutes.put("/", movieTagsController.update); */
-movieTagsRoutes.get("/:user_id", movieTagsController.show);
+const ensureAuthenticated = require("../middlewares/ensureAuthenticated");
+movieTagsRoutes.use(ensureAuthenticated);
+
 movieTagsRoutes.get("/", movieTagsController.index);
-/* movieTagsRoutes.delete("/", movieTagsController.delete); */
 
 module.exports = movieTagsRoutes;

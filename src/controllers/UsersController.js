@@ -26,7 +26,9 @@ class UsersController {
    }
 
    async update(request, response) {
-      const { id, name, email, oldPassword, password } = request.body;
+      const { name, email, oldPassword, password } = request.body;
+      const id = request.user.id;
+
       if (!id || !name || !email || !oldPassword || !password) {
          throw new AppError("Está faltando dados na requisição.");
       }
@@ -63,7 +65,8 @@ class UsersController {
    }
 
    async show(request, response) {
-      const { id } = request.params;
+      const id = request.user.id;
+
       if (!id) {
          throw new AppError("Você não informou o ID.");
       }
@@ -73,16 +76,13 @@ class UsersController {
          throw new AppError("Este usuário não existe.");
       }
 
-      return response.json({ user });
-   }
-
-   async index(request, response) {
-      const users = await knex("users");
-      response.json(users);
+      return response.json(user);
    }
 
    async delete(request, response) {
-      const { id, password } = request.body;
+      const { password } = request.body;
+      const id = request.user.id;
+      
       if (!id || !password) {
          throw new AppError("Está faltando informações na requisição.");
       }
