@@ -1,11 +1,12 @@
 require("express-async-errors");
 const express = require("express");
-const { request, response } = require("express");
 const routes = require("./routes");
+const cors = require("cors");
 const AppError = require("./utils/AppError");
 
 //Configurando o Server para utilização do json como padrão de comunicação
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 //Setando as rotas da aplicação

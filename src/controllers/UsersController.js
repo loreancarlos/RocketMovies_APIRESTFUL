@@ -26,21 +26,17 @@ class UsersController {
    }
 
    async update(request, response) {
-      const { name, email, oldPassword, password } = request.body;
+      const { name, email, oldPassword, newPassword } = request.body;
       const id = request.user.id;
 
-      if (!id || !name || !email || !oldPassword || !password) {
+      if (!id || !name || !email) {
          throw new AppError("Está faltando dados na requisição.");
       }
 
       const user = await knex("users").where({ id }).first();
+
       if (!user) {
          throw new AppError("Usuário não encontrado!");
-      }
-
-      const passwordIsRight = await compare(oldPassword, user.password);
-      if (!passwordIsRight) {
-         throw new AppError("Senha incorreta!");
       }
 
       const emailIsInUse = await knex("users").where({ email }).first();
@@ -48,9 +44,17 @@ class UsersController {
          throw new AppError("Este email já está sendo usado!");
       }
 
+      if (oldPassword && newPassword) {
+         const passwordIsRight = await compare(oldPassword, user.password);
+
+         if (!passwordIsRight) {
+            throw new AppError("Senha atual incorreta!");
+         }
+         user.password = await hash(newPassword, 8);
+      }
+
       user.name = name ?? user.name;
       user.email = email ?? user.email;
-      user.password = await hash(password, 8);
 
       await knex("users")
          .update({
@@ -82,7 +86,7 @@ class UsersController {
    async delete(request, response) {
       const { password } = request.body;
       const id = request.user.id;
-      
+
       if (!id || !password) {
          throw new AppError("Está faltando informações na requisição.");
       }

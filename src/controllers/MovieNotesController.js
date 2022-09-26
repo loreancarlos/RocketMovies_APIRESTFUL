@@ -6,11 +6,8 @@ class MovieNotesController {
       const { title, description, rating, tags } = request.body;
       const user_id = request.user.id;
 
-      const user = await knex("users")
-         .where({ id: user_id }).first();
-
-      if (!user) {
-         throw new AppError("Este usuário não existe!");
+      if (!title || !description || !rating) {
+         throw new AppError("Está faltando dados nesta requisição.");
       }
 
       const note_id = await knex("movie_notes")
@@ -21,15 +18,16 @@ class MovieNotesController {
             user_id
          });
 
-      const tagsInsert = tags.map(name => {
-         return {
-            user_id,
-            note_id,
-            name
-         };
-      });
-
-      await knex("movie_tags").insert(tagsInsert);
+      if (tags.length) {
+         const tagsInsert = tags.map(name => {
+            return {
+               user_id,
+               note_id,
+               name
+            };
+         });
+         await knex("movie_tags").insert(tagsInsert);
+      }
 
       return response.status(201).json();
    }
@@ -100,13 +98,24 @@ class MovieNotesController {
    }
 
    async index(request, response) {
-      const notes = await knex("movie_notes");
-    
+      const id = request.user.id;
+      const notes = await knex("movie_notes").where({ user_id: id });
+
       if (!notes.length) {
          throw new AppError("Não há notas cadastradas.");
       }
 
-      response.json({ notes });
+      const tags = await knex("movie_tags").where({ user_id: id });
+
+      const notesWithTags = notes.map(note => {
+         const noteTags = tags.filter(tag => tag.note_id === note.id);
+         return {
+            ...note,
+            tags: noteTags
+         };
+      });
+
+      response.json(notesWithTags);
    }
 
    async delete(request, response) {
@@ -117,7 +126,7 @@ class MovieNotesController {
       }
 
       const note = await knex("movie_notes").where({ id }).first();
-      
+
       if (!note) {
          throw new AppError("Esta nota não existe.");
       }
